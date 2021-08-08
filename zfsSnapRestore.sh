@@ -21,7 +21,7 @@ done
 
 dsMountPoints=()
 for p in $pools; do
-	datasets=$(zfs list -o name,mountpoint | sed -n '1!p' | grep "^p" | awk '{split($0, a, " ");print a[2]}')
+	datasets=$(zfs list -o name,mountpoint | sed -n '1!p' | grep "^$p" | awk '{split($0, a, " ");print a[2]}')
 	for dataset in $datasets; do
 		dsMountPoints+=( "$(egrep "/$selectedDataset" <<< "$dataset")" )
 	done
