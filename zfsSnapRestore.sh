@@ -47,8 +47,15 @@ for mountPoint in ${dsMountPoints[@]}; do
 	lines=0
 	files=()
 	while read p; do
-		let "lines=lines+1"
-		files+=( $p )
+		if [[ -d $p ]]; then
+			echo "Ommiting $p as it is a directory"
+		elif [[ -f $p ]]; then
+			let "lines=lines+1"
+			files+=( $p )
+		else
+			echo "Unknown error at $p!"
+			exit
+		fi
 	done < "/tmp/zfssnapRestor.tmp"
 	if [ "$lines" -eq "0" ]; then
 		echo "No Files selected, exiting!"
