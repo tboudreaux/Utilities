@@ -34,6 +34,7 @@ for mountPoint in ${dsMountPoints[@]}; do
 	snapshotRootDir="$mountPoint/.zfs/snapshot"
 	if [ -d $snapshotRootDir ]; then
 		snapshots=($snapshotRootDir/*)
+		# snapshotNames=($(find  ))
 		select snapshotToRestore in ${snapshots[@]}
 		do
 			restorTag=$(echo $snapshotToRestore | awk -F "/" '{print $NF}')
